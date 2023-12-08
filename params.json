@@ -1,0 +1,88 @@
+{
+    "model": "neural_srp",
+    "path_train": "/rds/general/user/ezajlerg/home/datasets/librispeech/train-clean-100",
+    "path_test": "/rds/general/user/ezajlerg/home/datasets/librispeech/test-clean",
+    "path_locata": "/Users/ezajlerg/datasets/third_party/locata_dev",
+    "path_tau_nigens": "/Users/ezajlerg/datasets/third_party/TAU-NIGENS",
+    "path_tau_nigens_preprocessed": "/Users/ezajlerg/datasets/third_party/TAU-NIGENS/feat_label_hnet_gcc_only",
+    "model_checkpoint_path": "/Users/ezajlerg/src/neural_srp/checkpoints/neural-srp-omni.bin",
+    "fs": 16000,
+    "speed_of_sound": 343,
+    "nb_gcc_bins": 64,
+    "n_mic_pairs": 15,
+    "win_size": 4096,
+    "hop_rate": 0.75,
+    "mic_pair_sampling_mode": "all",
+    "save_figures": true,
+    "quick_test": false,
+    "dataset": {
+        "max_audio_len_s": 10,
+        "array_train": "benchmark2",
+        "array_test": "benchmark2",
+        "max_rt60": 1.0,
+        "min_snr": 5,
+        "tau_nigens":{
+            "duration_s": 5,
+            "max_audio_len_s": 60,
+            "label_seq_len": 50,
+            "label_hop_len_s": 0.1,
+            "hop_len_s": 0.02,
+            "label_sequence_length": 50
+        },
+        "random_mic_config":{
+            "radius_range_in_m": [0.05, 0.1],
+            "n_mic_range": [4, 12],
+            "min_dist_between_mics_in_m": 0.01,
+            "mode": "spherical"
+        },
+        "cache_random_traj_dataset": false,
+        "noise_type": "omni"
+    },
+
+    "training": {
+        "batch_size": 1,
+        "lr": 1e-4,
+        "nb_epochs": 80,
+        "nb_epoch_snr_decrease": 10,
+        "lr_decrease_epochs": [],
+        "lr_decrease_factor": 0.5
+    },
+    "neural_srp": {
+        "dropout_rate": 0,
+        "f_pool_size": [2, 2, 2],
+        "t_pool_size": [5, 1, 1],
+        "nb_rnn_layers": 2,
+        "bidirectional_rnn": false,
+        "conv_agg_mode": "flatten",
+        "pair_agg_mode": "sum",
+        "nb_cnn2d_filt": 128,
+        "rnn_size": 128,
+        "fnn_pairwise_size": 128,
+        "fnn_doa_size": 128,
+        "fnn_act_size": 128,
+        "nb_fnn_act_layers": 3,
+        "nb_pairwise_fnn_layers": 2,
+        "nb_fnn_layers": 2,
+        "metadata_type": "mic_positions",
+        "use_activity_output": true,
+        "metadata_fusion_mode": "late_concat",
+        "use_batch_norm_input": false,
+        "use_batch_norm_hidden": false,
+        "input_feature": "gcc"
+    },
+    "srp":{
+        "res_the": 32,
+        "res_phi": 64,
+        "gcc_mode": "neural"
+    },
+    "loss":{
+        "doa_loss_weight": 1,
+        "activity_loss_weight": 0,
+        "vad_weighted_loss": false,
+        "dMOTP_wt": 50,
+        "IDS_wt": 1,
+        "dMOTA_wt": 1,
+        "temporal_regularity_weight": 0,
+        "norm_type": "l1"
+    }
+}
