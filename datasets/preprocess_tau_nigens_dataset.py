@@ -107,7 +107,7 @@ class Preprocessor:
         return label_mat
 
     # ------------------------------- EXTRACT FEATURE AND PREPROCESS IT -------------------------------
-    def extract_all_feature(self):
+    def extract_all_features(self):
         # setting up folders
         self._feat_dir = self.get_unnormalized_feat_dir()
         create_folder(self._feat_dir)
@@ -122,8 +122,8 @@ class Preprocessor:
             audio_in, fs = self._load_audio(os.path.join(self._aud_dir, wav_filename))
 
             #extract gcc features
-            feat = self._gcc_extractor(audio_in)
-            nb_frames = feat.shape[1]
+            feat = self._gcc_extractor(audio_in)[0]
+            (nb_frames, n_output_channels, nb_bins) = feat.shape
             feat = feat.transpose((0, 2, 1)).reshape((nb_frames, -1))
 
             print('{}: {}, {}'.format(file_cnt, file_name, feat.shape))
@@ -420,7 +420,7 @@ if __name__ == "__main__":
     preprocessor = Preprocessor(params, gcc_mode='all')
 
     # # Extract features and normalize them
-    preprocessor.extract_all_feature()
+    preprocessor.extract_all_features()
     preprocessor.preprocess_features()
 
     # # Extract labels in regression mode

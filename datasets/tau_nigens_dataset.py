@@ -230,7 +230,3 @@ class TauNigensDataLoader(object):
 
     def __len__(self):
         return self._nb_total_batches
-
-def _normalize_axis(data, axis=-1):
-    norm  = np.max(np.abs(data), axis=axis, keepdims=True)
-    return data / (norm + 1e-8)

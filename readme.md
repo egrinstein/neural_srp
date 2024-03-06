@@ -38,5 +38,6 @@ You can find the pretrained models in the `checkpoints` folder.
 ## Datasets
 
 * LOCATA [LOCATA challenge](https://www.locata.lms.tf.fau.de/). 
-* TAU-NIGENS [TAU-NIGENS dataset](https://dcase.community/challenge2021/task-sound-event-localization-and-detection#:~:text=The%20TAU%2DNIGENS%20Spatial%20Sound,seen%20from%20the%20recording%20position)
+* TAU-NIGENS [TAU-NIGENS dataset](https://dcase.community/challenge2021/task-sound-event-localization-and-detection#:~:text=The%20TAU%2DNIGENS%20Spatial%20Sound,seen%20from%20the%20recording%20position). After downloading, run the preprocessing script `python -m datasets.preprocess_tau_nigens_dataset` to generate the dataset in the correct format. Set the variable `path_tau_nigens_preprocessed` to the path of the output preprocessed dataset in `params.json`.
+
 

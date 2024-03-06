@@ -84,16 +84,18 @@ class GccExtractor:
                 break
 
         gcc_feat = gcc_feat.transpose((0, 2, 1))
+        # gcc_feat.shape = (nb_frames, n_output_channels, self._nb_bins)
+        
         return gcc_feat
 
-    def forward(self, audio_in, labels):
+    def forward(self, audio_in, labels=None):
         spect = self._spectrogram(audio_in)
 
         feat = self._get_gcc(spect)
 
         return feat, labels
 
-    def __call__(self, audio_in, labels):
+    def __call__(self, audio_in, labels=None):
         return self.forward(audio_in, labels)
 
 
