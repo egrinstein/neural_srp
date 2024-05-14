@@ -369,11 +369,9 @@ def simulate(acoustic_scene):
             timestamps=acoustic_scene["timestamps"],
             fs=acoustic_scene["fs"],
         )
-
-        interf_signals = np.sqrt(
-            ac_pow / 10 ** (acoustic_scene["SNR"] / 10)
-        ) * interf_signals
-
+        ac_pow_noise = np.mean([acoustic_power(interf_signals[:,i]) for i in range(interf_signals.shape[1])])
+        interf_signals = np.sqrt(ac_pow/10**(acoustic_scene["SNR"]/10)) / np.sqrt(ac_pow_noise) * interf_signals
+        
         mic_signals += interf_signals[0 : len(acoustic_scene["t"]), :]
     else:
         # Omnidirectional noise
